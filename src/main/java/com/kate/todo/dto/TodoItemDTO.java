@@ -1,22 +1,26 @@
 package com.kate.todo.dto;
 
+import com.kate.todo.entity.TodoItem;
+
 /**
  * @author Oleg Z. (cornknight@gmail.com)
  */
-public class Todo {
-	private long id;
+public class TodoItemDTO {
+	private Long id;
 	private String title;
 
-	public Todo(long id, String title) {
+	public TodoItemDTO() {}
+
+	public TodoItemDTO(Long id, String title) {
 		this.id = id;
 		this.title = title;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -27,4 +31,9 @@ public class Todo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public TodoItem toEntity() {
+		return new TodoItem(title);
+	}
+
 }

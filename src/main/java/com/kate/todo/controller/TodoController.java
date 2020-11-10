@@ -1,14 +1,13 @@
 package com.kate.todo.controller;
 
-import com.kate.todo.dto.Todo;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.kate.todo.dto.TodoItemDTO;
+import com.kate.todo.entity.TodoItem;
+import com.kate.todo.repository.TodoRepository;
+import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.GET;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Oleg Z. (cornknight@gmail.com)
@@ -18,12 +17,22 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class TodoController {
 
+	private final TodoRepository repo;
+
+	public TodoController(TodoRepository repo) {
+		this.repo = repo;
+	}
+
 	@GetMapping("/list")
-	public List<Todo> getTodoList() {
-		List<Todo> todos = new ArrayList<>();
-		todos.add(new Todo(1,"title1"));
-		todos.add(new Todo(2,"title2"));
-		todos.add(new Todo(2,"title3"));
-		return todos;
+	public List<TodoItemDTO> getTodoList() {
+		return repo.findAll().stream()
+		            .map(TodoItem::toDTO)
+		            .collect(Collectors.toList());
+	}
+
+	@PostMapping(value = "/add")
+	public TodoItemDTO add(@RequestBody TodoItemDTO dto) {
+		TodoItem item = dto.toEntity();
+		return repo.save(item).toDTO();
 	}
 }
