@@ -3,6 +3,7 @@ package com.kate.todo.entity;
 import com.kate.todo.dto.TodoItemDTO;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,8 @@ public class TodoItem {
 
 	@Column(name = "title", nullable = false)
 	private String title;
+
+	private Instant createdAt;
 
 	public TodoItem() {}
 

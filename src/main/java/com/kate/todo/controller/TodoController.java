@@ -5,6 +5,7 @@ import com.kate.todo.entity.TodoItem;
 import com.kate.todo.repository.TodoRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,7 @@ public class TodoController {
 
 	@PostMapping(value = "/add")
 	public TodoItemDTO add(@RequestBody TodoItemDTO dto) {
+		dto.setCreatedAt(Instant.now());
 		TodoItem item = dto.toEntity();
 		return repo.save(item).toDTO();
 	}
