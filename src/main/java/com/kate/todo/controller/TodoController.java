@@ -43,11 +43,14 @@ public class TodoController {
 		            .collect(Collectors.toList());
 	}
 
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	@PostMapping(value = "/add")
 	public TodoItemDTO add(@RequestBody TodoItemDTO dto) {
 		dto.setCreatedAt(Instant.now());
 		TodoItem item = dto.toEntity();
-		return repo.save(item).toDTO();
+		item = repo.save(item);
+		TodoItemDTO result = item.toDTO();
+		return result;
 	}
 
 	@DeleteMapping(value = "/delete/{id}")

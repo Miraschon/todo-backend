@@ -45,7 +45,7 @@ public class TodoItemDTO {
 	}
 
 	public TodoItem toEntity() {
-		return new TodoItem(title);
+		return new TodoItem(title, createdAt);
 	}
 
 

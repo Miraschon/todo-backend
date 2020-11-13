@@ -24,8 +24,9 @@ public class TodoItem {
 
 	public TodoItem() {}
 
-	public TodoItem(String title) {
+	public TodoItem(String title, Instant createdAt) {
 		this.title = title;
+		this.createdAt = createdAt;
 	}
 
 	public Long getId() {
@@ -44,6 +45,14 @@ public class TodoItem {
 		this.title = title;
 	}
 
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -60,6 +69,6 @@ public class TodoItem {
 	}
 
 	public TodoItemDTO toDTO() {
-		return new TodoItemDTO(id,title);
+		return new TodoItemDTO(id,title,createdAt);
 	}
 }
